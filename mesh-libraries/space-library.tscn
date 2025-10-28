@@ -31,10 +31,10 @@ mesh = SubResource("BoxMesh_m01nb")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="FreeSpace/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_c6wjm")
 
-[node name="TurretMesh" type="MeshInstance3D" parent="."]
+[node name="TurretBase" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_c6wjm")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TurretMesh"]
+[node name="StaticBody3D" type="StaticBody3D" parent="TurretBase"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TurretMesh/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TurretBase/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_472e8")
