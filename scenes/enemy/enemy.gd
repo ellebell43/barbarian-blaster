@@ -3,6 +3,7 @@ class_name Enemy
 extends PathFollow3D
 @export var speed: float = 5
 @export var damage: int = 1
+@export var delay: float = 0
 
 @onready var base: PlayerBase = get_tree().get_first_node_in_group("base")
 
