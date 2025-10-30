@@ -6,4 +6,4 @@
 transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.42261824, 0, 0, 0)
 script = ExtResource("1_geoxh")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="MouseRay" type="RayCast3D" parent="."]
