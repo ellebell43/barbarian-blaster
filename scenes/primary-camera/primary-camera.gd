@@ -1,6 +1,7 @@
 extends Camera3D
 
 @export var map: GridMap
+@export var turret_manager: TurretManager
 
 @onready var mouse_ray = $MouseRay
 
@@ -23,7 +24,6 @@ func _process(_delta: float) -> void:
 			var collision_point = mouse_ray.get_collision_point()
 			cell = map.local_to_map(collision_point)
 			var current_cell_type = map.get_cell_item(cell)
-			print(cell)
 			
 			if not cell == focus_cell:
 				highlight_cell(cell)
@@ -32,6 +32,7 @@ func _process(_delta: float) -> void:
 				
 			if Input.is_action_just_pressed("click") and not current_cell_type == cell_type.VOID:
 					map.set_cell_item(cell, cell_type.OCCUPIED_FOCUSED)
+					turret_manager.create_turret(map.map_to_local(cell))
 	else:
 		stop_highlight_cell(focus_cell)
 		stop_highlight_cell(cell)
