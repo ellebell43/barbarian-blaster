@@ -8,7 +8,6 @@ extends Node3D
 
 @onready var shot_timer: Timer = $ShotTimer
 @onready var turret_barrel: MeshInstance3D = $TurretBase/TurretTop
-@onready var targeting_ray: RayCast3D = $TargetingRay
 @onready var animation_player := $AnimationPlayer
 
 var shoot := false
@@ -34,10 +33,10 @@ func _on_shot_timer_timeout() -> void:
 		shot.direction = global_transform.basis.z # modify direction based on the global z axis rather than the parents z
 
 func find_best_target() -> PathFollow3D:
-	var best_target = null
-	var best_progress = 0
+	var best_target: PathFollow3D = null
 	for target in enemy_path.get_children():
 		if target is PathFollow3D:
-			if target.progress > best_progress and global_position.distance_to(target.global_position) <= turret_range:
-				best_target = target
+			if not best_target or target.progress > best_target.progress:
+				if global_position.distance_to(target.global_position) <= turret_range:
+					best_target = target
 	return best_target

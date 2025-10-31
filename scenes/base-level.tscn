@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b3ubn7cgwsnof"]
+[gd_scene load_steps=22 format=3 uid="uid://b3ubn7cgwsnof"]
 
 [ext_resource type="MeshLibrary" uid="uid://d0hlcrofc28g0" path="res://mesh-libraries/space-library.tres" id="1_0oc5h"]
 [ext_resource type="PackedScene" uid="uid://de0et4xkjhia7" path="res://scenes/primary-camera/primary-camera.tscn" id="1_gwe6x"]
@@ -8,6 +8,18 @@
 [ext_resource type="Script" uid="uid://c3h5krevxlapi" path="res://scenes/turret-manager.gd" id="5_cxbiy"]
 [ext_resource type="PackedScene" uid="uid://c0g0kpx1wemmw" path="res://scenes/turret/turret.tscn" id="6_gn7e1"]
 [ext_resource type="Script" uid="uid://c7tilix1ewajr" path="res://scenes/ui.gd" id="8_wvxc7"]
+[ext_resource type="PackedScene" uid="uid://dk687ml4mj4ha" path="res://scenes/difficulty_manager/difficulty_manager.tscn" id="9_7qu7n"]
+[ext_resource type="PackedScene" uid="uid://6o0jaejep8w3" path="res://scenes/ui/victory_layer.tscn" id="10_48v76"]
+
+[sub_resource type="Curve" id="Curve_7qu7n"]
+_limits = [0.25, 2.0, 0.0, 1.0]
+_data = [Vector2(0, 2), 0.0, -1.7500001, 0, 1, Vector2(1, 0.25), -1.7500001, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_48v76"]
+_limits = [10.0, 150.0, 0.0, 1.0]
+_data = [Vector2(0, 10), 0.0, 140.0, 0, 1, Vector2(1, 150), 140.0, 0.0, 1, 0]
+point_count = 2
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_spd7x"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -48,6 +60,11 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="BaseLevel" type="Node3D"]
 
+[node name="DifficultyManager" parent="." node_paths=PackedStringArray("enemy_path") instance=ExtResource("9_7qu7n")]
+spawn_time_curve = SubResource("Curve_7qu7n")
+enemy_health_curve = SubResource("Curve_48v76")
+enemy_path = NodePath("../EnemyPath")
+
 [node name="SunLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
@@ -73,10 +90,12 @@ data = {
 "cells": PackedInt32Array(65535, 2, 0, 2, 2, 0, 3, 2, 0, 65532, 2, 0, 0, 2, 0, 1, 2, 0, 65533, 2, 0, 65534, 2, 0, 4, 2, 0, 4, 1, 0, 4, 0, 0, 4, 65535, 0, 4, 65534, 0, 3, 65534, 0, 2, 65534, 0, 1, 65534, 0, 0, 65534, 0, 65531, 65534, 0, 65531, 65535, 0, 65531, 0, 0, 65531, 2, 0, 65532, 65534, 0, 65532, 65535, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 65534, 65534, 0, 65535, 65534, 0, 8, 10, 1, 9, 10, 3)
 }
 
-[node name="EnemyPath" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager", "victory_layer")]
 curve = SubResource("Curve3D_3tsvm")
 script = ExtResource("3_gn7e1")
 enemy_scene = ExtResource("2_3tsvm")
+difficulty_manager = NodePath("../DifficultyManager")
+victory_layer = NodePath("../VictoryLayer")
 
 [node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 material_override = SubResource("StandardMaterial3D_3tsvm")
@@ -88,7 +107,7 @@ path_interval = 0.5
 path_simplify_angle = 0.0
 path_rotation = 2
 path_rotation_accurate = false
-path_local = false
+path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
@@ -102,7 +121,7 @@ path_interval = 0.5
 path_simplify_angle = 0.0
 path_rotation = 2
 path_rotation_accurate = false
-path_local = false
+path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
@@ -117,7 +136,7 @@ path_interval = 0.5
 path_simplify_angle = 0.0
 path_rotation = 2
 path_rotation_accurate = false
-path_local = false
+path_local = true
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
@@ -129,6 +148,7 @@ autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_l6ph3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
+max_health = 100
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 script = ExtResource("5_cxbiy")
@@ -154,4 +174,7 @@ size_flags_vertical = 8
 text = "Gold: 10"
 label_settings = SubResource("LabelSettings_gn7e1")
 
+[node name="VictoryLayer" parent="." instance=ExtResource("10_48v76")]
+
+[connection signal="stop_spawning_enemies" from="DifficultyManager" to="EnemyPath" method="_on_difficulty_manager_stop_spawning_enemies"]
 [connection signal="timeout" from="EnemyPath/SpawnTimer" to="EnemyPath" method="spawn_enemy"]

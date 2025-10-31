@@ -4,7 +4,7 @@ extends PathFollow3D
 @export var speed:= 5
 @export var damage: int = 1
 @export var delay: float = 0
-@export var max_health = 50
+@export var max_health := 50
 @export var currency_reward = 15
 
 @onready var base: PlayerBase = get_tree().get_first_node_in_group("base")

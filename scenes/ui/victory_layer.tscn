@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://6o0jaejep8w3"]
+
+[ext_resource type="Script" uid="uid://cwb8ut1g20y5b" path="res://scenes/ui/victory_layer.gd" id="1_3o5xv"]
+[ext_resource type="Texture2D" uid="uid://b1mt3anmdtsya" path="res://assets/ui/star.png" id="2_xsdqg"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_xsdqg"]
+font_size = 52
+
+[node name="VictoryLayer" type="CanvasLayer"]
+script = ExtResource("1_3o5xv")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.27, 0.27, 0.27, 0.6039216)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="YouWon" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "You Won!"
+label_settings = SubResource("LabelSettings_xsdqg")
+horizontal_alignment = 1
+
+[node name="StarContainer" type="HBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="StarImage1" type="TextureRect" parent="CenterContainer/Panel/VBoxContainer/StarContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_xsdqg")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="StarImage2" type="TextureRect" parent="CenterContainer/Panel/VBoxContainer/StarContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_xsdqg")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="StarImage3" type="TextureRect" parent="CenterContainer/Panel/VBoxContainer/StarContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_xsdqg")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Retry"
+
+[node name="QuiteButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/HBoxContainer/RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/HBoxContainer/QuiteButton" to="." method="_on_quite_button_pressed"]

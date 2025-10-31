@@ -20,4 +20,3 @@ func _ready() -> void:
 
 func take_damage (damage: int) -> void:
 	current_health -= damage
-	print("base damaged by " + str(damage) + " point.")

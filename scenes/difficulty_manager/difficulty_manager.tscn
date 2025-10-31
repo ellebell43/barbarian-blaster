@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dk687ml4mj4ha"]
+
+[ext_resource type="Script" uid="uid://dolfd0b5ebgnv" path="res://scenes/difficulty_manager/difficulty_manager.gd" id="1_d1w41"]
+
+[node name="DifficultyManager" type="Node3D"]
+script = ExtResource("1_d1w41")
+
+[node name="LevelTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="LevelTimer" to="." method="_on_level_timer_timeout"]
