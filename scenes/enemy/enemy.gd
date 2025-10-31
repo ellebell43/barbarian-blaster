@@ -7,9 +7,12 @@ extends PathFollow3D
 @export var max_health = 50
 
 @onready var base: PlayerBase = get_tree().get_first_node_in_group("base")
+@onready var animation_player = $AnimationPlayer
 
 var current_health: int:
 	set(new_health):
+		if new_health < current_health:
+			animation_player.play("take_damage")
 		current_health = new_health
 		if current_health < 1:
 			queue_free()

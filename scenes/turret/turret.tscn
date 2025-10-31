@@ -1,14 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0g0kpx1wemmw"]
+[gd_scene load_steps=12 format=3 uid="uid://c0g0kpx1wemmw"]
 
 [ext_resource type="Script" uid="uid://bjiqehr883jcp" path="res://scenes/turret/turret.gd" id="1_i6dxt"]
-[ext_resource type="PackedScene" uid="uid://bboxpaoc16sgh" path="res://scenes/turret/projectile.tscn" id="2_rmqmx"]
+[ext_resource type="PackedScene" path="res://scenes/turret/projectile.tscn" id="2_rmqmx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8wgh"]
 albedo_color = Color(0.3853798, 0.2714499, 0.10596328, 1)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_f8wgh"]
 material = SubResource("StandardMaterial3D_f8wgh")
-height = 1.0
+height = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6dxt"]
 albedo_color = Color(0.68, 0.68, 0.68, 1)
@@ -32,31 +32,97 @@ top_radius = 0.18
 bottom_radius = 0.18
 height = 0.6
 
+[sub_resource type="Animation" id="Animation_rmqmx"]
+resource_name = "shoot"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretBase/TurretTop/TurretBarrel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.1, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0.78659546), Vector3(0, 0, 0.78659546), Vector3(0, 0, 0.42493653), Vector3(0, 0, 0.787)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TurretBase/TurretTop/TurretBarrel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.025, 0.05),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(1, 1, 1), Vector3(1.25, 1, 1.25), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_xfx51"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TurretBase/TurretTop/TurretBarrel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0.78659546)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TurretBase/TurretTop/TurretBarrel:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m8ak0"]
+_data = {
+&"RESET": SubResource("Animation_xfx51"),
+&"shoot": SubResource("Animation_rmqmx")
+}
+
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_i6dxt")
 projectile = ExtResource("2_rmqmx")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.5, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.35, 0)
 mesh = SubResource("CylinderMesh_f8wgh")
 
 [node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 mesh = SubResource("CylinderMesh_i6dxt")
 
 [node name="TurretBarrel" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 1.7484555e-07, 0, 7.642742e-15, -4.371139e-08, 1, 1.7484555e-07, -1, -4.371139e-08, 0, 0, 0.78659546)
+transform = Transform3D(1, 1.7484555e-07, 7.642742e-15, 0, -4.371139e-08, 1, 1.7484555e-07, -1, -4.371139e-08, 0, 0, 0.78659546)
 mesh = SubResource("CylinderMesh_rmqmx")
 skeleton = NodePath("../..")
 
-[node name="TurretBarrel2" type="MeshInstance3D" parent="TurretBase/TurretTop"]
-transform = Transform3D(1, 1.7484555e-07, 0, 7.642742e-15, -4.371139e-08, 1, 1.7484555e-07, -1, -4.371139e-08, 0, 0, 0.8484384)
+[node name="TurretBarrel2" type="MeshInstance3D" parent="TurretBase/TurretTop/TurretBarrel"]
+transform = Transform3D(1, 0, 8.4703295e-22, 0, 1, 0, 8.4703295e-22, 0, 1, 1.0812954e-08, -0.06184292, 0)
 mesh = SubResource("CylinderMesh_xfx51")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
 [node name="ShotTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="TargetingRay" type="RayCast3D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_m8ak0")
+}
 
 [connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]

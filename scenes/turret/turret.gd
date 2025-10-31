@@ -9,6 +9,7 @@ extends Node3D
 @onready var shot_timer: Timer = $ShotTimer
 @onready var turret_barrel: MeshInstance3D = $TurretBase/TurretTop
 @onready var targeting_ray: RayCast3D = $TargetingRay
+@onready var animation_player := $AnimationPlayer
 
 var shoot := false
 var enemy_path: Path3D
@@ -26,6 +27,7 @@ func _physics_process(_delta: float) -> void:
 
 func _on_shot_timer_timeout() -> void:
 	if shoot:
+		animation_player.play("shoot")
 		var shot = projectile.instantiate()
 		add_child(shot)
 		shot.global_position = turret_barrel.global_position

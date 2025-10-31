@@ -1,14 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bboxpaoc16sgh"]
+[gd_scene load_steps=5 format=3 uid="uid://brgwhuxe7l1nj"]
 
-[ext_resource type="Script" uid="uid://tinernmckcfv" path="res://scenes/turret/projectile.gd" id="1_78ogm"]
+[ext_resource type="Script" path="res://scenes/turret/projectile.gd" id="1_78ogm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30my0"]
 albedo_color = Color(0.44250143, 9.3854965e-07, 2.1658838e-07, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_78ogm"]
 material = SubResource("StandardMaterial3D_30my0")
+radius = 0.3
+height = 0.6
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fcm3p"]
+radius = 0.3
 
 [node name="Projectile" type="Area3D"]
 top_level = true
