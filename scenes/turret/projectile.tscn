@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bboxpaoc16sgh"]
+
+[ext_resource type="Script" uid="uid://tinernmckcfv" path="res://scenes/turret/projectile.gd" id="1_78ogm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_30my0"]
+albedo_color = Color(0.44250143, 9.3854965e-07, 2.1658838e-07, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_78ogm"]
+material = SubResource("StandardMaterial3D_30my0")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fcm3p"]
+
+[node name="Projectile" type="Area3D"]
+top_level = true
+script = ExtResource("1_78ogm")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_78ogm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_fcm3p")
+
+[node name="LifespanTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="LifespanTimer" to="." method="_on_lifespan_timer_timeout"]

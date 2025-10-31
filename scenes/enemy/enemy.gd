@@ -1,15 +1,22 @@
 class_name Enemy
-
 extends PathFollow3D
-@export var speed: float = 5
+
+@export var speed:= 5
 @export var damage: int = 1
 @export var delay: float = 0
+@export var max_health = 50
 
 @onready var base: PlayerBase = get_tree().get_first_node_in_group("base")
 
+var current_health: int:
+	set(new_health):
+		current_health = new_health
+		if current_health < 1:
+			queue_free()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	current_health = max_health
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,4 +25,3 @@ func _process(delta: float) -> void:
 	if (progress_ratio == 1):
 		base.take_damage(damage)
 		queue_free()
-	pass

@@ -1,4 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0g0kpx1wemmw"]
+[gd_scene load_steps=9 format=3 uid="uid://c0g0kpx1wemmw"]
+
+[ext_resource type="Script" uid="uid://bjiqehr883jcp" path="res://scenes/turret/turret.gd" id="1_i6dxt"]
+[ext_resource type="PackedScene" uid="uid://bboxpaoc16sgh" path="res://scenes/turret/projectile.tscn" id="2_rmqmx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8wgh"]
 albedo_color = Color(0.3853798, 0.2714499, 0.10596328, 1)
@@ -30,9 +33,11 @@ bottom_radius = 0.18
 height = 0.6
 
 [node name="Turret" type="Node3D"]
+script = ExtResource("1_i6dxt")
+projectile = ExtResource("2_rmqmx")
 
 [node name="TurretBase" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0.5, 0)
 mesh = SubResource("CylinderMesh_f8wgh")
 
 [node name="TurretTop" type="MeshInstance3D" parent="TurretBase"]
@@ -48,3 +53,10 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 1.7484555e-07, 0, 7.642742e-15, -4.371139e-08, 1, 1.7484555e-07, -1, -4.371139e-08, 0, 0, 0.8484384)
 mesh = SubResource("CylinderMesh_xfx51")
 skeleton = NodePath("../..")
+
+[node name="ShotTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="TargetingRay" type="RayCast3D" parent="."]
+
+[connection signal="timeout" from="ShotTimer" to="." method="_on_shot_timer_timeout"]
