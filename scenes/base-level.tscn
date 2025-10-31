@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://b3ubn7cgwsnof"]
+[gd_scene load_steps=18 format=3 uid="uid://b3ubn7cgwsnof"]
 
 [ext_resource type="MeshLibrary" uid="uid://d0hlcrofc28g0" path="res://mesh-libraries/space-library.tres" id="1_0oc5h"]
 [ext_resource type="PackedScene" uid="uid://de0et4xkjhia7" path="res://scenes/primary-camera/primary-camera.tscn" id="1_gwe6x"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dccf4dj1wd02" path="res://scenes/base/base.tscn" id="3_l6ph3"]
 [ext_resource type="Script" uid="uid://c3h5krevxlapi" path="res://scenes/turret-manager.gd" id="5_cxbiy"]
 [ext_resource type="PackedScene" uid="uid://c0g0kpx1wemmw" path="res://scenes/turret/turret.tscn" id="6_gn7e1"]
+[ext_resource type="Script" uid="uid://c7tilix1ewajr" path="res://scenes/ui.gd" id="8_wvxc7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_spd7x"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -39,6 +40,11 @@ albedo_color = Color(0.61, 0.61, 0.61, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gwe6x"]
 albedo_color = Color(0.6117647, 0.6117647, 0.6117647, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gn7e1"]
+font_size = 38
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -128,5 +134,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -6)
 script = ExtResource("5_cxbiy")
 turret_scene = ExtResource("6_gn7e1")
 enemy_path = NodePath("../EnemyPath")
+
+[node name="UI" type="MarginContainer" parent="." groups=["ui"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("8_wvxc7")
+
+[node name="Currency" type="Label" parent="UI"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "Gold: 10"
+label_settings = SubResource("LabelSettings_gn7e1")
 
 [connection signal="timeout" from="EnemyPath/SpawnTimer" to="EnemyPath" method="spawn_enemy"]

@@ -5,9 +5,11 @@ extends PathFollow3D
 @export var damage: int = 1
 @export var delay: float = 0
 @export var max_health = 50
+@export var currency_reward = 15
 
 @onready var base: PlayerBase = get_tree().get_first_node_in_group("base")
 @onready var animation_player = $AnimationPlayer
+@onready var ui: UI = get_tree().get_first_node_in_group("ui")
 
 var current_health: int:
 	set(new_health):
@@ -15,6 +17,7 @@ var current_health: int:
 			animation_player.play("take_damage")
 		current_health = new_health
 		if current_health < 1:
+			ui.current_currency += currency_reward
 			queue_free()
 
 # Called when the node enters the scene tree for the first time.
