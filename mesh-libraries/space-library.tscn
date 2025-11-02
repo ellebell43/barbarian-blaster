@@ -1,7 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dw3u156qu37fk"]
+[gd_scene load_steps=13 format=3 uid="uid://dw3u156qu37fk"]
+
+[ext_resource type="PackedScene" uid="uid://drcwv70fl4pd" path="res://models/Tree.glb" id="1_iwtls"]
+[ext_resource type="PackedScene" uid="uid://u34wku374ppj" path="res://models/Rocks.glb" id="2_y1nxf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c6wjm"]
-albedo_color = Color(0.76240367, 0.76240367, 0.76240367, 1)
+blend_mode = 1
+albedo_color = Color(0.37, 0.37, 0.37, 1)
 emission = Color(0.6496569, 0.5693785, 0.43958932, 1)
 emission_energy_multiplier = 2.29
 stencil_flags = 2
@@ -16,7 +20,8 @@ size = Vector3(4, 0.1, 4)
 data = PackedVector3Array(-2, 0.049999997, 2, 2, 0.049999997, 2, -2, -0.049999997, 2, 2, 0.049999997, 2, 2, -0.049999997, 2, -2, -0.049999997, 2, 2, 0.049999997, -2, -2, 0.049999997, -2, 2, -0.049999997, -2, -2, 0.049999997, -2, -2, -0.049999997, -2, 2, -0.049999997, -2, 2, 0.049999997, 2, 2, 0.049999997, -2, 2, -0.049999997, 2, 2, 0.049999997, -2, 2, -0.049999997, -2, 2, -0.049999997, 2, -2, 0.049999997, -2, -2, 0.049999997, 2, -2, -0.049999997, -2, -2, 0.049999997, 2, -2, -0.049999997, 2, -2, -0.049999997, -2, 2, 0.049999997, 2, -2, 0.049999997, 2, 2, 0.049999997, -2, -2, 0.049999997, 2, -2, 0.049999997, -2, 2, 0.049999997, -2, -2, -0.049999997, 2, 2, -0.049999997, 2, -2, -0.049999997, -2, 2, -0.049999997, 2, 2, -0.049999997, -2, -2, -0.049999997, -2)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gkfdx"]
-albedo_color = Color(0.76240367, 0.76240367, 0.76240367, 1)
+transparency = 1
+albedo_color = Color(0.76, 0.76, 0.76, 0.30588236)
 emission_enabled = true
 emission = Color(0.76400447, 0.5992388, 0.42342284, 1)
 stencil_flags = 2
@@ -27,7 +32,8 @@ material = SubResource("StandardMaterial3D_gkfdx")
 size = Vector3(4, 0.1, 4)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_84j6m"]
-albedo_color = Color(0.5587861, 0.23367143, 0.147066, 1)
+transparency = 1
+albedo_color = Color(0.56, 0.23538667, 0.14559999, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_c6wjm"]
 material = SubResource("StandardMaterial3D_84j6m")
@@ -50,37 +56,41 @@ size = Vector3(4, 0.1, 4)
 
 [node name="SpaceLibrary" type="Node3D"]
 
-[node name="FreeSpace" type="MeshInstance3D" parent="."]
+[node name="00FreeSpace" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("BoxMesh_m01nb")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="FreeSpace"]
+[node name="StaticBody3D" type="StaticBody3D" parent="00FreeSpace"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FreeSpace/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="00FreeSpace/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_c6wjm")
 
-[node name="FreeSpaceFocus" type="MeshInstance3D" parent="."]
+[node name="01FreeSpaceFocus" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_y1nxf")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="FreeSpaceFocus"]
+[node name="StaticBody3D" type="StaticBody3D" parent="01FreeSpaceFocus"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FreeSpaceFocus/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="01FreeSpaceFocus/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_c6wjm")
 
-[node name="TurretBase" type="MeshInstance3D" parent="."]
+[node name="03TurretBase" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("BoxMesh_c6wjm")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TurretBase"]
+[node name="StaticBody3D" type="StaticBody3D" parent="03TurretBase"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TurretBase/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="03TurretBase/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_472e8")
 
-[node name="TurretBaseFocus" type="MeshInstance3D" parent="."]
+[node name="04TurretBaseFocus" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource("BoxMesh_xt1kh")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="TurretBaseFocus"]
+[node name="StaticBody3D" type="StaticBody3D" parent="04TurretBaseFocus"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="TurretBaseFocus/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="04TurretBaseFocus/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_472e8")
+
+[node name="Tree" parent="." instance=ExtResource("1_iwtls")]
+
+[node name="Rocks" parent="." instance=ExtResource("2_y1nxf")]

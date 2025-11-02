@@ -7,7 +7,7 @@ extends Node3D
 @export var turret_range := 10.0
 
 @onready var shot_timer: Timer = $ShotTimer
-@onready var turret_barrel: MeshInstance3D = $TurretBase/TurretTop
+@onready var turret_cannon := $TurretBase2/Cannon
 @onready var animation_player := $AnimationPlayer
 
 var shoot := false
@@ -20,7 +20,8 @@ func _physics_process(_delta: float) -> void:
 	var target = find_best_target()
 	if target:
 		shoot = true
-		look_at(find_best_target().global_position, Vector3.UP, true)
+		turret_cannon.look_at(find_best_target().global_position, Vector3.UP, true)
+		turret_cannon.rotation.x = 0
 	else:
 		shoot = false
 
@@ -29,8 +30,8 @@ func _on_shot_timer_timeout() -> void:
 		animation_player.play("shoot")
 		var shot = projectile.instantiate()
 		add_child(shot)
-		shot.global_position = turret_barrel.global_position
-		shot.direction = global_transform.basis.z # modify direction based on the global z axis rather than the parents z
+		shot.global_position = turret_cannon.global_position
+		shot.direction = turret_cannon.global_transform.basis.z # modify direction based on the global z axis rather than the parents z
 
 func find_best_target() -> PathFollow3D:
 	var best_target: PathFollow3D = null

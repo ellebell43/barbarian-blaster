@@ -10,9 +10,6 @@ extends CanvasLayer
 @onready var base: PlayerBase = get_tree().get_first_node_in_group("base")
 @onready var ui: UI = get_tree().get_first_node_in_group("ui")
 
-func _ready() -> void:
-	Engine.time_scale = 5
-
 func victory() -> void:
 	visible = true
 	if base.max_health <= base.current_health:
