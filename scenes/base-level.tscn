@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dccf4dj1wd02" path="res://scenes/base/base.tscn" id="3_l6ph3"]
 [ext_resource type="Script" uid="uid://c3h5krevxlapi" path="res://scenes/turret-manager.gd" id="5_cxbiy"]
 [ext_resource type="PackedScene" uid="uid://c0g0kpx1wemmw" path="res://scenes/turret/turret.tscn" id="6_gn7e1"]
-[ext_resource type="Script" uid="uid://c7tilix1ewajr" path="res://scenes/ui.gd" id="8_wvxc7"]
+[ext_resource type="Script" path="res://scenes/ui.gd" id="8_wvxc7"]
 [ext_resource type="PackedScene" uid="uid://dk687ml4mj4ha" path="res://scenes/difficulty_manager/difficulty_manager.tscn" id="9_7qu7n"]
 [ext_resource type="PackedScene" uid="uid://6o0jaejep8w3" path="res://scenes/ui/victory_layer.tscn" id="10_48v76"]
 
@@ -166,6 +166,7 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("8_wvxc7")
+starting_currency = 150000
 
 [node name="Currency" type="Label" parent="UI"]
 layout_mode = 2
